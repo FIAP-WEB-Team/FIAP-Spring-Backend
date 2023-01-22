@@ -5,10 +5,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -36,11 +33,12 @@ public class FirebaseRepository {
         return result.getId();
     }
 
-    public <T> List<T> getMultipleDocumentsFromCollection(Class<T> classType, String collectionPath, int limit, Map<String, String> filters)
+    public <T> List<T> getMultipleDocumentsFromCollection(Class<T> classType, String collectionPath, int limit,
+                                                          Map<String, String> filters)
             throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         Query query = dbFirestore.collection(collectionPath).limit(limit);
-        for (Map.Entry<String, String> entry : filters.entrySet()){
+        for (Map.Entry<String, String> entry : filters.entrySet()) {
             query = query.whereEqualTo(entry.getKey(), entry.getValue());
         }
         ApiFuture<QuerySnapshot> future = query.get();

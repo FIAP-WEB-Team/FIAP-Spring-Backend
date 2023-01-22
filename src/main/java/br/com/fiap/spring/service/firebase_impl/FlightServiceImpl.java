@@ -18,12 +18,14 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<FlightDTO> searchFlights(int queryLimit, String arrival, String departure) throws ExecutionException, InterruptedException {
+    public List<FlightDTO> searchFlights(int queryLimit, String arrival, String departure) throws ExecutionException,
+            InterruptedException {
         HashMap<String, String> filters = new HashMap<>();
         if (arrival != null)
             filters.put("Arrival", arrival);
         if (departure != null)
             filters.put("Departure", departure);
-        return repository.getMultipleDocumentsFromCollection(FlightDTO.class, "GolData/Data/Flights", queryLimit, filters);
+        return repository.getMultipleDocumentsFromCollection(FlightDTO.class, "GolData/Data/Flights", queryLimit,
+                filters);
     }
 }
