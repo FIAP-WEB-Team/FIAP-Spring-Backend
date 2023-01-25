@@ -1,6 +1,6 @@
 package br.com.fiap.spring.security;
 
-import br.com.fiap.spring.model.dto.UserDTO;
+import br.com.fiap.spring.model.dto.auth.CreateUserDTO;
 import br.com.fiap.spring.repository.FirebaseRepository;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Component;
@@ -18,10 +18,11 @@ public class JwtUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDTO user;
+        CreateUserDTO user;
         try {
-            List<UserDTO> users = firebaseRepository.getMultipleDocumentsFromCollection(UserDTO.class, "GolData" +
-                    "/Data/Users", 1, Map.of("username", username));
+            List<CreateUserDTO> users = firebaseRepository.getMultipleDocumentsFromCollection(CreateUserDTO.class,
+                    "GolData/Data/Users",
+                    1, Map.of("username", username));
             if (users.isEmpty())
                 throw new InvalidParameterException("Username " + username + " not found");
             user = users.get(0);
@@ -31,7 +32,6 @@ public class JwtUserDetailService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.username,
                 user.password,
-                new ArrayList<>()
-        );
+                new ArrayList<>());
     }
 }

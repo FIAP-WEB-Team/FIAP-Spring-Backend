@@ -14,7 +14,7 @@ public class FirebaseInitialize {
     public void initialize() {
         try {
             FileInputStream serviceAccount = null;
-            for (String path : new String[]{"src/main/resources/config/service_key.json", "service_key.json"})
+            for (String path : new String[] { "src/main/resources/config/service_key.json", "service_key.json" })
                 if (new File(path).isFile()) {
                     serviceAccount = new FileInputStream(path);
                     break;
@@ -22,7 +22,7 @@ public class FirebaseInitialize {
             if (serviceAccount == null)
                 throw new FileNotFoundException("Could not find the service key file");
 
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://golapi-5c457.web.app/")
                     .build();
