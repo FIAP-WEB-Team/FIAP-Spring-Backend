@@ -2,4 +2,7 @@ server:
   port: 8080
 jwt:
   secret: nuggets3cr37
-  expire: 5
+  expire: 120
+logging:
+  level:
+    root: INFO

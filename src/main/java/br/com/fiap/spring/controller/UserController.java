@@ -21,7 +21,8 @@ public class UserController {
         return userService.create(createUserDTO);
     }
 
-    @PostMapping("login")
+    @PostMapping(value = "login", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
     public JwtDTO login(@RequestBody AuthDTO authDTO) {
         return userService.login(authDTO);
     }

@@ -2,11 +2,13 @@ package br.com.fiap.spring.configuration;
 
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -19,11 +21,16 @@ public class SecurityConfig {
 
     private final JwtAuthenticationEntrypoint jwtAuthenticationEntrypoint;
     private final JwtRequestFilter jwtFilter;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUserDetailService userDetailService;
 
     public SecurityConfig(JwtAuthenticationEntrypoint jwtAuthenticationEntrypoint,
-            JwtRequestFilter jwtFilter) {
+            JwtRequestFilter jwtFilter, PasswordEncoder passwordEncoder,
+            JwtUserDetailService userDetailService) {
         this.jwtAuthenticationEntrypoint = jwtAuthenticationEntrypoint;
         this.jwtFilter = jwtFilter;
+        this.passwordEncoder = passwordEncoder;
+        this.userDetailService = userDetailService;
     }
 
     @Bean
@@ -51,5 +58,13 @@ public class SecurityConfig {
                 .formLogin().disable();
 
         return http.build();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(userDetailService);
+        return provider;
     }
 }
