@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable()
+                .cors().and().csrf().disable()
                 .formLogin().disable();
 
         return http.build();

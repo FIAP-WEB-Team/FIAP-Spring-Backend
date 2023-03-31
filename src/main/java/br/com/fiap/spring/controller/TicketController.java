@@ -24,6 +24,7 @@ public class TicketController {
         return null;
     }
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TicketDTO createTicket(@RequestBody TicketDTO ticketDTO) {

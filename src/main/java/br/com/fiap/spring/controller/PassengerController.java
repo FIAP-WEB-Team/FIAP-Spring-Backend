@@ -25,6 +25,7 @@ public class PassengerController {
         return null;
     }
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PassengerDTO createPassenger(@RequestBody CreatePassengerDTO createPassengerDTO) {

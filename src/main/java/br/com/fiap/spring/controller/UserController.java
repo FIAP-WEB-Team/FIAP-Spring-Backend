@@ -21,6 +21,7 @@ public class UserController {
         return userService.create(createUserDTO);
     }
 
+    @CrossOrigin
     @PostMapping(value = "login", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public JwtDTO login(@RequestBody AuthDTO authDTO) {

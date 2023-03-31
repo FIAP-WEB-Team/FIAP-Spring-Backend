@@ -15,6 +15,7 @@ public class FlightController {
         this.service = service;
     }
 
+    @CrossOrigin
     @GetMapping
     public List<FlightDTO> searchFlights(@RequestParam(required = false, value = "arrival") String arrival,
                                          @RequestParam(required = false, value = "departure") String departure) {
