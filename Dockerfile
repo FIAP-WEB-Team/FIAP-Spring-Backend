@@ -3,6 +3,5 @@ RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 COPY build/libs/spring-0.0.1-SNAPSHOT.jar app.jar
 COPY src/main/resources/config/service_key.json service_key.json
-COPY src/main/resources/config/rabbitmq_secret.json rabbitmq_secret.json
 COPY src/main/resources/config/gmail_secret.json gmail_secret.json
 ENTRYPOINT ["java","-jar","/app.jar"]
